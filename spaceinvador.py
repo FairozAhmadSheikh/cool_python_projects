@@ -145,3 +145,17 @@ while running:
 
         score_lives = font.render(f"Score: {score}   Lives: {lives}", True, WHITE)
         screen.blit(score_lives, (10, 10))
+    else:
+        game_over_text = big_font.render("GAME OVER", True, WHITE)
+        score_text = font.render(f"Final Score: {score}", True, WHITE)
+        screen.blit(game_over_text, ((SCREEN_WIDTH - game_over_text.get_width()) // 2, SCREEN_HEIGHT // 2 - 50))
+        screen.blit(score_text, ((SCREEN_WIDTH - score_text.get_width()) // 2, SCREEN_HEIGHT // 2))
+
+        if restart_button.draw(screen):
+            reset_game()
+
+    pygame.display.update()
+    clock.tick(60)
+
+pygame.quit()
+sys.exit()
