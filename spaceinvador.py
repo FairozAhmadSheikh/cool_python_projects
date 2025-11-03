@@ -21,3 +21,13 @@ player_img = pygame.transform.scale(player_img, (60, 40))
 bullet_img = pygame.Surface((7, 18), pygame.SRCALPHA)
 pygame.draw.rect(bullet_img, (255, 255, 0), [0, 0, 7, 18])
 bullet_speed = 9
+
+
+enemy_imgs = [
+    pygame.transform.scale(pygame.image.load('alien1.png').convert_alpha(), (48, 36)),
+    pygame.transform.scale(pygame.image.load('alien2.png').convert_alpha(), (48, 36)),
+    pygame.transform.scale(pygame.image.load('alien3.png').convert_alpha(), (48, 36))
+]
+
+font = pygame.font.Font(None, 36)
+big_font = pygame.font.Font(None, 72)
