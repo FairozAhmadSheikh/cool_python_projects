@@ -31,3 +31,26 @@ enemy_imgs = [
 
 font = pygame.font.Font(None, 36)
 big_font = pygame.font.Font(None, 72)
+
+class Button:
+    def __init__(self, x, y, width, height, text):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.text = text
+        self.color = (70, 130, 180)  
+        self.highlight_color = (100, 149, 237) 
+
+    def draw(self, surface):
+        mouse_pos = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+
+        if self.rect.collidepoint(mouse_pos):
+            pygame.draw.rect(surface, self.highlight_color, self.rect)
+            if click[0] == 1:  
+                return True  
+        else:
+            pygame.draw.rect(surface, self.color, self.rect)
+
+        text_surf = font.render(self.text, True, WHITE)
+        text_rect = text_surf.get_rect(center=self.rect.center)
+        surface.blit(text_surf, text_rect)
+        return False
