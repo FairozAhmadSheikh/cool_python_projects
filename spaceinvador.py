@@ -78,3 +78,70 @@ def reset_game():
 def is_collision(x1, y1, x2, y2, threshold=32):
     distance = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
     return distance < threshold
+
+reset_game()
+
+clock = pygame.time.Clock()
+running = True
+
+button_width, button_height = 200, 50
+restart_button = Button((SCREEN_WIDTH - button_width)//2, SCREEN_HEIGHT//2 + 50, button_width, button_height, "Restart")
+
+while running:
+    screen.fill(BLACK)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    if not game_over:
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_LEFT] and player_x > 0:
+            player_x -= 6
+        if keys[pygame.K_RIGHT] and player_x < SCREEN_WIDTH - 60:
+            player_x += 6
+
+        if keys[pygame.K_SPACE]:
+            if len(bullets) < 5:
+                bullets.append([player_x + 28, player_y])
+
+        for bullet in bullets[:]:
+            bullet[1] -= bullet_speed
+            screen.blit(bullet_img, (bullet[0], bullet[1]))
+            if bullet[1] < 0:
+                bullets.remove(bullet)
+
+        for enemy in enemies:
+            enemy['x'] += enemy['speed']
+            if enemy['x'] <= 0 or enemy['x'] >= SCREEN_WIDTH - 48:
+                enemy['speed'] = -enemy['speed']
+                enemy['y'] += 40
+            screen.blit(enemy['img'], (enemy['x'], enemy['y']))
+
+            for bullet in bullets[:]:
+                if is_collision(enemy['x'], enemy['y'], bullet[0], bullet[1]):
+                    if bullet in bullets:
+                        bullets.remove(bullet)
+
+                    enemy['x'] = random.randint(0, SCREEN_WIDTH - 48)
+                    enemy['y'] = random.randint(60, 160)
+                    enemy['speed'] = random.choice([2, 3, 4])
+                    enemy['img'] = random.choice(enemy_imgs)
+                    score += 1
+
+            if is_collision(enemy['x'] + 24, enemy['y'] + 18, player_x + 30, player_y + 20, threshold=40):
+                lives -= 1
+                if lives <= 0:
+                    game_over = True
+                else:
+                    player_x = (SCREEN_WIDTH - 60) // 2
+                    bullets.clear()
+                    enemies = create_enemies()
+                    pygame.display.update()
+                    time.sleep(1)
+                    break
+
+        screen.blit(player_img, (player_x, player_y))
+
+        score_lives = font.render(f"Score: {score}   Lives: {lives}", True, WHITE)
+        screen.blit(score_lives, (10, 10))
