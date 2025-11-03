@@ -64,3 +64,17 @@ def create_enemies():
         speed = random.choice([2, 3, 4])
         enemies.append({'img': image, 'x': x, 'y': y, 'speed': speed})
     return enemies
+
+def reset_game():
+    global player_x, player_y, bullets, enemies, score, lives, game_over
+    player_x = (SCREEN_WIDTH - 60) // 2
+    player_y = SCREEN_HEIGHT - 70
+    bullets = []
+    enemies = create_enemies()
+    score = 0
+    lives = 3
+    game_over = False
+
+def is_collision(x1, y1, x2, y2, threshold=32):
+    distance = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
+    return distance < threshold
