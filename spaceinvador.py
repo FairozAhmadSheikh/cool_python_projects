@@ -54,3 +54,13 @@ class Button:
         text_rect = text_surf.get_rect(center=self.rect.center)
         surface.blit(text_surf, text_rect)
         return False
+
+def create_enemies():
+    enemies = []
+    for _ in range(8):
+        image = random.choice(enemy_imgs)
+        x = random.randint(0, SCREEN_WIDTH - 48)
+        y = random.randint(60, 160)
+        speed = random.choice([2, 3, 4])
+        enemies.append({'img': image, 'x': x, 'y': y, 'speed': speed})
+    return enemies
