@@ -185,3 +185,8 @@ class Calculator:
     def run(self):
         """Start the calculator application"""
         self.root.mainloop()
+
+# Create and run the calculator
+if __name__ == "__main__":
+    calculator = Calculator()
+    calculator.run()
