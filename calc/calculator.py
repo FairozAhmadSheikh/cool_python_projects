@@ -91,3 +91,9 @@ class Calculator:
         self.create_button(buttons_frame, ".", 4, 2, self.number_color, lambda: self.add_to_expression("."), button_config)
         self.create_button(buttons_frame, "=", 4, 3, self.equals_color, self.calculate, button_config)
         
+        # Configure grid weights for responsive design
+        for i in range(5):
+            buttons_frame.grid_rowconfigure(i, weight=1)
+        for i in range(4):
+            buttons_frame.grid_columnconfigure(i, weight=1)
+    
