@@ -27,3 +27,13 @@ class Calculator:
         self.total = 0
         
         self.create_widgets()
+        
+    def create_widgets(self):
+        # Main frame
+        main_frame = ctk.CTkFrame(self.root, fg_color=self.bg_color)
+        main_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # Display frame
+        display_frame = ctk.CTkFrame(main_frame, height=120, fg_color=self.display_color)
+        display_frame.pack(fill="x", padx=10, pady=(10, 20))
+        display_frame.pack_propagate(False)
