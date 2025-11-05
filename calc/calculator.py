@@ -37,3 +37,14 @@ class Calculator:
         display_frame = ctk.CTkFrame(main_frame, height=120, fg_color=self.display_color)
         display_frame.pack(fill="x", padx=10, pady=(10, 20))
         display_frame.pack_propagate(False)
+        
+        # Display entry
+        self.display = ctk.CTkEntry(
+            display_frame,
+            font=ctk.CTkFont(size=32, weight="bold"),
+            height=60,
+            justify="right",
+            border_width=0,
+            fg_color="transparent",
+            text_color="#ffffff"
+        )
