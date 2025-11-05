@@ -112,3 +112,29 @@ class Calculator:
         )
         button.grid(row=row, column=col, columnspan=columnspan, padx=3, pady=3, sticky="nsew")
         return button
+    def adjust_color_brightness(self, hex_color, factor):
+        """Adjust the brightness of a hex color"""
+        hex_color = hex_color.lstrip('#')
+        rgb = tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+        rgb = tuple(min(255, int(c * factor)) for c in rgb)
+        return f"#{rgb[0]:02x}{rgb[1]:02x}{rgb[2]:02x}"
+    
+    def add_to_expression(self, value):
+        """Add number or decimal to the current expression"""
+        current = self.display.get()
+        if current == "0" or current == "Error":
+            self.display.delete(0, END)
+            self.display.insert(0, value)
+        else:
+            self.display.delete(0, END)
+            self.display.insert(0, current + value)
+        self.current_expression += value
+    
+    def add_operator(self, operator):
+        """Add operator to the current expression"""
+        current = self.display.get()
+        if current and current != "Error":
+            self.current_expression += operator
+            self.display.delete(0, END)
+            self.display.insert(0, current + operator)
+    
