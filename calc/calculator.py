@@ -48,3 +48,16 @@ class Calculator:
             fg_color="transparent",
             text_color="#ffffff"
         )
+        self.display.pack(fill="both", expand=True, padx=20, pady=20)
+        self.display.insert(0, "0")
+        # Buttons frame
+        buttons_frame = ctk.CTkFrame(main_frame, fg_color="transparent")
+        buttons_frame.pack(fill="both", expand=True, padx=10, pady=(0, 10))
+        
+        # Button configuration
+        button_config = {
+            "font": ctk.CTkFont(size=20, weight="bold"),
+            "height": 70,
+            "corner_radius": 15,
+            "border_width": 0
+        }
