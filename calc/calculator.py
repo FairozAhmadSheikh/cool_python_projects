@@ -61,3 +61,33 @@ class Calculator:
             "corner_radius": 15,
             "border_width": 0
         }
+        # Row 1: Clear, ±, %, ÷
+        self.create_button(buttons_frame, "C", 0, 0, self.clear_color, self.clear_all, button_config)
+        self.create_button(buttons_frame, "±", 0, 1, self.number_color, self.toggle_sign, button_config)
+        self.create_button(buttons_frame, "%", 0, 2, self.number_color, lambda: self.add_to_expression("%"), button_config)
+        self.create_button(buttons_frame, "÷", 0, 3, self.operator_color, lambda: self.add_operator("/"), button_config)
+        
+        # Row 2: 7, 8, 9, ×
+        self.create_button(buttons_frame, "7", 1, 0, self.number_color, lambda: self.add_to_expression("7"), button_config)
+        self.create_button(buttons_frame, "8", 1, 1, self.number_color, lambda: self.add_to_expression("8"), button_config)
+        self.create_button(buttons_frame, "9", 1, 2, self.number_color, lambda: self.add_to_expression("9"), button_config)
+        self.create_button(buttons_frame, "×", 1, 3, self.operator_color, lambda: self.add_operator("*"), button_config)
+        
+        # Row 3: 4, 5, 6, -
+        self.create_button(buttons_frame, "4", 2, 0, self.number_color, lambda: self.add_to_expression("4"), button_config)
+        self.create_button(buttons_frame, "5", 2, 1, self.number_color, lambda: self.add_to_expression("5"), button_config)
+        self.create_button(buttons_frame, "6", 2, 2, self.number_color, lambda: self.add_to_expression("6"), button_config)
+        self.create_button(buttons_frame, "-", 2, 3, self.operator_color, lambda: self.add_operator("-"), button_config)
+        
+        # Row 4: 1, 2, 3, +
+        self.create_button(buttons_frame, "1", 3, 0, self.number_color, lambda: self.add_to_expression("1"), button_config)
+        self.create_button(buttons_frame, "2", 3, 1, self.number_color, lambda: self.add_to_expression("2"), button_config)
+        self.create_button(buttons_frame, "3", 3, 2, self.number_color, lambda: self.add_to_expression("3"), button_config)
+        self.create_button(buttons_frame, "+", 3, 3, self.operator_color, lambda: self.add_operator("+"), button_config)
+        
+        # Row 5: 0 (spans 2 columns), ., =
+        zero_config = button_config.copy()
+        self.create_button(buttons_frame, "0", 4, 0, self.number_color, lambda: self.add_to_expression("0"), zero_config, columnspan=2)
+        self.create_button(buttons_frame, ".", 4, 2, self.number_color, lambda: self.add_to_expression("."), button_config)
+        self.create_button(buttons_frame, "=", 4, 3, self.equals_color, self.calculate, button_config)
+        
