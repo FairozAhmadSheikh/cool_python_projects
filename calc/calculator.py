@@ -137,4 +137,49 @@ class Calculator:
             self.current_expression += operator
             self.display.delete(0, END)
             self.display.insert(0, current + operator)
+    def clear_all(self):
+        """Clear the display and reset expression"""
+        self.display.delete(0, END)
+        self.display.insert(0, "0")
+        self.current_expression = ""
+    
+    def toggle_sign(self):
+        """Toggle the sign of the current number"""
+        current = self.display.get()
+        if current and current != "0" and current != "Error":
+            if current.startswith("-"):
+                new_value = current[1:]
+            else:
+                new_value = "-" + current
+            self.display.delete(0, END)
+            self.display.insert(0, new_value)
+    def calculate(self):
+        """Evaluate the current expression"""
+        try:
+            expression = self.display.get()
+            # Replace display symbols with Python operators
+            expression = expression.replace("×", "*").replace("÷", "/")
+            
+            # Handle percentage
+            if "%" in expression:
+                parts = expression.split("%")
+                if len(parts) == 2:
+                    expression = parts[0] + "*0.01"
+            
+            result = eval(expression)
+            
+            # Format the result
+            if result == int(result):
+                result = int(result)
+            else:
+                result = round(result, 8)
+            
+            self.display.delete(0, END)
+            self.display.insert(0, str(result))
+            self.current_expression = str(result)
+            
+        except:
+            self.display.delete(0, END)
+            self.display.insert(0, "Error")
+            self.current_expression = ""
     
