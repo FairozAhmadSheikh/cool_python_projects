@@ -182,4 +182,6 @@ class Calculator:
             self.display.delete(0, END)
             self.display.insert(0, "Error")
             self.current_expression = ""
-    
+    def run(self):
+        """Start the calculator application"""
+        self.root.mainloop()
