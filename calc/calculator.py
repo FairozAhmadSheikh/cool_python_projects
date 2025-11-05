@@ -97,3 +97,18 @@ class Calculator:
         for i in range(4):
             buttons_frame.grid_columnconfigure(i, weight=1)
     
+    def create_button(self, parent, text, row, col, color, command, config, columnspan=1):
+        """Helper method to create styled buttons"""
+        hover_color = self.adjust_color_brightness(color, 1.2)
+        
+        button = ctk.CTkButton(
+            parent,
+            text=text,
+            command=command,
+            fg_color=color,
+            hover_color=hover_color,
+            text_color="#ffffff",
+            **config
+        )
+        button.grid(row=row, column=col, columnspan=columnspan, padx=3, pady=3, sticky="nsew")
+        return button
